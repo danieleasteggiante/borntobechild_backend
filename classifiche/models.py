@@ -1,3 +1,37 @@
+from datetime import timezone
+
 from django.db import models
+from django.db.models import DateTimeField
 
 # Create your models here.
+from home.validator import validate_image_size
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(null=True, blank=True)
+    description = models.TextField()
+    image = models.ImageField(upload_to='images/', validators=[validate_image_size], blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Element(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    image = models.ImageField(upload_to='images/', validators=[validate_image_size], blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    rank = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
+
+
+class Comment(models.Model):
+    author = models.CharField(max_length=100)
+    content = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.category.name}"
