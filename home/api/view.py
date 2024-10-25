@@ -1,10 +1,10 @@
 from rest_framework import generics
 
-from home.api.serializer import HomeSerializer
-from home.models import Home
+from home.api.serializer import HomeSerializer, SectionSerializer
+from home.models import Home, Section
 
 
 class HomeView(generics.ListCreateAPIView):
-    queryset = Home.objects.all()
-    serializer_class = HomeSerializer
+    queryset = Section.objects.all()
+    serializer_class = SectionSerializer
     #permission_classes = [permissions.IsAuthenticated]

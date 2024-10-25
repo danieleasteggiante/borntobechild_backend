@@ -1,7 +1,4 @@
-from datetime import timezone
-
 from django.db import models
-from django.db.models import DateTimeField
 
 # Create your models here.
 from home.validator import validate_image_size
@@ -9,7 +6,7 @@ from home.validator import validate_image_size
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(null=True, blank=True)
-    description = models.TextField()
+    description = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/', validators=[validate_image_size], blank=True, null=True)
 
     def __str__(self):

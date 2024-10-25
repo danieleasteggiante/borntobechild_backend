@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+from tutorial.settings import BASE_DIR
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,16 +41,22 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'corsheaders',
 
     'home',
     'classifiche',
     'areaneonati',
     'blog',
+    'oauthgoogle',
 ]
 
 MIDDLEWARE = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -106,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -118,7 +125,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -128,3 +134,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8080',
+]
+MEDIA_ROOT = BASE_DIR / 'media/'
+MEDIA_URL = '/media/'
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8080']
+
+GOOGLE_OAUTH_CLIENT_ID = '805991211134-uo7lk9p4s8trs0c3s9a57oc1n66ruon9.apps.googleusercontent.com'
+GOOGLE_OAUTH_CLIENT_SECRET = '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'
+GOOGLE_OAUTH_REDIRECT_URI = 'http://localhost:8080/oauth/google/callback'
+GOOGLE_OAUTH_TOKEN_URI = 'https://oauth2.googleapis.com/token'
+GOOGLE_OAUTH_USER_INFO_URI = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json'
+
