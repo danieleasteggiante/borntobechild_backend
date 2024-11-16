@@ -19,11 +19,3 @@ class Section(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='sections')
     def __str__(self):
         return self.title
-
-class Comment(models.Model):
-    name = models.CharField(max_length=100)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
-    def __str__(self):
-        return self.name

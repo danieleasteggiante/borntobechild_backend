@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 from tutorial.settings import BASE_DIR
+import colorlog
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +30,34 @@ SECRET_KEY = 'django-insecure-i#&rb2q7r3=%ks97tlzf=fbt&8=&9l5gq$256h_jv@6-smq7h_
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'colored': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': '%(log_color)s%(levelname)s:%(name)s:%(message)s',
+            'log_colors': {
+                'DEBUG': 'white',
+                'INFO': 'green',
+                'WARNING': 'yellow',
+                'ERROR': 'red',
+                'CRITICAL': 'bold_red',
+            },
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'colored',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
 
 
 # Application definition
@@ -47,6 +77,7 @@ INSTALLED_APPS = [
     'classifiche',
     'areaneonati',
     'blog',
+    'comments',
     'oauthgoogle',
 ]
 

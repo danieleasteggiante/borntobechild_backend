@@ -1,8 +1,11 @@
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
 
-from classifiche.api.serializer import ElementSerializer, CommentSerializer, CategorySerializer
-from classifiche.models import Element, Category, Comment
+from classifiche.api.serializer import ElementSerializer, CategorySerializer
+from classifiche.models import Element, Category
+import logging
 
+LOGGER = logging.getLogger(__name__)
 
 class ElementDetailView(generics.RetrieveAPIView):
     lookup_field = 'id'
@@ -26,8 +29,4 @@ class RankingView(generics.ListCreateAPIView):
         category = Category.objects.get(slug=self.kwargs['slug'])
         return Element.objects.filter(category=category).order_by('rank')
 
-class CommentList(generics.ListCreateAPIView):
-    serializer_class = CommentSerializer
-    def get_queryset(self):
-        category = Category.objects.get(slug=self.kwargs['slug'])
-        return Comment.objects.filter(category=category).order_by('-created_at')
+

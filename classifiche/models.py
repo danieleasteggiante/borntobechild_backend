@@ -22,13 +22,3 @@ class Element(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Comment(models.Model):
-    author = models.CharField(max_length=100)
-    content = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True)
-
-    def __str__(self):
-        return f"Comment by {self.author} on {self.category.name}"

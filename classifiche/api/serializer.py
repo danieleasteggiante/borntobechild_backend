@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from classifiche.models import Category, Element, Comment
+from classifiche.models import Category, Element
 
 
 class ElementSerializer(serializers.ModelSerializer):
@@ -10,12 +10,6 @@ class ElementSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
         fields = '__all__'
 
 

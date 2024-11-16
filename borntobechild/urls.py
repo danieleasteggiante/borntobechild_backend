@@ -25,5 +25,6 @@ urlpatterns = [
     path('api/home/', include("home.api.urls")),
     path('api/classifiche/', include("classifiche.api.urls")),
     path('api/blog/', include("blog.api.urls")),
+    path('api/comments/', include("comments.api.urls")),
     path('api/auth/', include("oauthgoogle.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
